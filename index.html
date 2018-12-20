@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Web Cryptography API - Encrypt/Decrypt PII Data</title> 
+    <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="lib/apigClient.js"></script>
+	<script type="text/javascript" src="lib/promiz/promiz.js"></script>
+	<script type="text/javascript" src="lib/webcrypto-shim/webcrypto-shim.js"></script>
+	<script type="text/javascript" src="lib/shoco/shoco.js"></script>
+	<script type="text/javascript" src="lib/webcryptotest.js"></script>
+</head>
+<body>
+	<h1>Web Cryptography API - Encrypt/Decrypt PII Data</h1>
+	<p>-------------------------------------------</p>
+	<p>Clear Text fields to be encrypted:</p>
+	<p>ClearFirstname: <input id='ClearFirstname' type='text' value='Leon' name='ClearFirstname'></p>
+	<p>ClearSurname: <input id='ClearSurname' type='text' value='Funnell' name='ClearSurname'></p>
+	<p>-------------------------------------------</p>
+	<input id='ButtonMakeKeys' class= 'button' type='button' value='MakeKeys' name='MakeKeys' onClick='javascript:
+		MakeKeys("FirstnameKey");
+		setTimeout(function(){
+				MakeKeys("SurnameKey");
+			}, 20);'>
+	<p>These are the keys to be stored in the key management system:</p>
+	<p>FirstnameKey: <span id="FirstnameKey"></span></p>
+	<p>SurnameKey: <span id="SurnameKey"></span></p>
+	<p>-------------------------------------------</p>
+	<input id='ButtonMakeVector' class= 'button' type='button' value='MakeVector' name='MakeVector' onClick='
+			javascript:MakeVector("FirstnameVector");
+			javascript:MakeVector("SurnameVector");'>
+	<p>These act as a key index, to be stored with the encrypted data, and additionally protect the data from brute-force attack</p>
+	<p>FirstnameVector: <span id="FirstnameVector"></span></p>
+	<p>SurnameVector: <span id="SurnameVector"></span></p>	
+	<p>-------------------------------------------</p>
+	<input id='ButtonEncryptFields' class= 'button' type='button' value='EncryptFields' name='EncryptFields' onClick='javascript:
+			EncryptFields("ClearFirstname","FirstnameKey","FirstnameVector","EncFirstname");
+			setTimeout(function(){
+				EncryptFields("ClearSurname","SurnameKey","SurnameVector","EncSurname");
+			}, 20);'>
+	<p>These are the encrypted fields to be stored in the untrusted database:</p>
+	<p>EncFirstname: <span id="EncFirstname"></span> </p>
+	<p>EncSurname: <span id="EncSurname"></span></p>
+	<p>-------------------------------------------</p>
+	<input id='ButtonDecryptFields' class= 'button' type='button' value='DecryptFields' name='DecryptFields' onClick='javascript:
+			DecryptFields("EncFirstname","FirstnameKey","FirstnameVector","DecFirstname");
+			setTimeout(function(){
+				DecryptFields("EncSurname","SurnameKey","SurnameVector","DecSurname");}, 20);
+			'>
+	<p>The vector should be sent to the key store, which looks up and returns the keys.  Using the encrypted text, vector and returned keys to reconstruct the original data. </P>
+	<p>DecFirstname: <span id="DecFirstname"></span></p>
+	<p>DecSurname: <span id="DecSurname"></span></p>
+	<p>-------------------------------------------</p>
+
+
+</body>
+</html>

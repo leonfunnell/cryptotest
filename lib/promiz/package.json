@@ -1,0 +1,40 @@
+{
+  "name": "promiz",
+  "version": "1.0.5",
+  "description": "A proper compact promise (promises/A+ spec compliant) library.",
+  "main": "promiz.js",
+  "scripts": {
+    "spec": "promises-aplus-tests test/spec-adapter",
+    "test": "mocha test/promiz.js",
+    "all": "mocha test/promiz.js && promises-aplus-tests test/spec-adapter && promises-es6-tests test/spec-adapter",
+    "es6": "promises-es6-tests test/spec-adapter"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zolmeister/promiz.git"
+  },
+  "keywords": [
+    "promiz",
+    "promise",
+    "promise/A+",
+    "library",
+    "promises",
+    "promises-a",
+    "promises-aplus",
+    "deffered",
+    "future",
+    "async",
+    "flow control"
+  ],
+  "devDependencies": {
+    "clay-chai": "0.0.2",
+    "grunt": "~0.4.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "mocha": "2.0.1",
+    "promises-aplus-tests": "^2.1.1",
+    "promises-es6-tests": "0.5.0"
+  },
+  "author": "Zolmeister",
+  "license": "MIT",
+  "gitHead": "381d65d8abe30f2077f3f9d7ccdcb41e58a8fb5a"
+}
